@@ -1,0 +1,2218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BinaryImperium - SaaS Development Experts</title>
+    <link rel="icon" href="logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Required libraries for PDF and email functionality -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
+    <script>
+        // Initialize EmailJS with your public key
+        (function () {
+            emailjs.init("MmbS08f7JlV2kuM1J"); // Replace with your actual EmailJS public key
+        })();
+    </script>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .app {
+            position: relative;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+        }
+
+        .gradient-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom right, rgba(107, 33, 168, 0.2), rgba(30, 58, 138, 0.2), rgba(20, 184, 166, 0.2));
+        }
+
+        .pulse-circle-1 {
+            position: absolute;
+            top: 0;
+            left: 25%;
+            width: 24rem;
+            height: 24rem;
+            background-color: rgba(147, 51, 234, 0.1);
+            border-radius: 9999px;
+            filter: blur(48px);
+            animation: pulse 4s infinite;
+        }
+
+        .pulse-circle-2 {
+            position: absolute;
+            bottom: 0;
+            right: 25%;
+            width: 24rem;
+            height: 24rem;
+            background-color: rgba(59, 130, 246, 0.1);
+            border-radius: 9999px;
+            filter: blur(48px);
+            animation: pulse 4s infinite;
+            animation-delay: 1s;
+        }
+
+        .pulse-circle-3 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 24rem;
+            height: 24rem;
+            background-color: rgba(20, 184, 166, 0.1);
+            border-radius: 9999px;
+            filter: blur(48px);
+            animation: pulse 4s infinite;
+            animation-delay: 2s;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes ping {
+
+            75%,
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        @keyframes draw {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        .animate-ping {
+            animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            width: 100%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            background-color: rgba(0, 0, 0, 0.5);
+            height: 70px;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-icon {
+            position: relative;
+        }
+
+        .logo-icon i {
+            color: #22d3ee;
+            font-size: 1.5rem;
+        }
+
+        .logo-icon-ping {
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: #22d3ee;
+            opacity: 0.2;
+            animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: bold;
+            background: linear-gradient(to right, #22d3ee, #c084fc);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            position: relative;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #22d3ee;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -0.25rem;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #22d3ee;
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #d1d5db;
+            font-size: 1.25rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu-btn:hover {
+            color: #22d3ee;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            flex-direction: column;
+            padding: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            transform: translateY(-10px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-nav-link {
+            padding: 1rem;
+            color: #d1d5db;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: color 0.3s;
+        }
+
+        .mobile-nav-link:hover {
+            color: #22d3ee;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 80px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            background-color: rgba(6, 182, 212, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #22d3ee;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+
+        .hero-title-line1 {
+            background: linear-gradient(to right, #fff, #bae6fd, #e9d5ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-title-line2 {
+            background: linear-gradient(to right, #22d3ee, #c084fc, #f472b6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-title-line3 {
+            color: white;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: #d1d5db;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            font-size: 1.125rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-gradient {
+            background: linear-gradient(to right, #06b6d4, #a855f7);
+            border: none;
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(6, 182, 212, 0.25);
+        }
+
+        .btn-gradient:hover {
+            background: linear-gradient(to right, #0891b2, #9333ea);
+            box-shadow: 0 20px 25px -5px rgba(6, 182, 212, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 1px solid rgba(34, 211, 238, 0.5);
+            color: #22d3ee;
+            background-color: transparent;
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(6, 182, 212, 0.1);
+            border-color: rgba(34, 211, 238, 0.8);
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            padding-top: 2rem;
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .cyan-purple {
+            background: linear-gradient(to right, #22d3ee, #c084fc);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .purple-pink {
+            background: linear-gradient(to right, #c084fc, #f472b6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .pink-cyan {
+            background: linear-gradient(to right, #f472b6, #22d3ee);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: 9ca3af;
+        }
+
+        .hero-image-container {
+            position: relative;
+        }
+
+        .hero-image-glass {
+            position: relative;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            width: 100%;
+            height: 300px;
+        }
+
+        .hero-image-glass::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent);
+            border-radius: 1.5rem;
+        }
+
+        .hero-image-glass img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 1rem;
+        }
+
+        .status-badge {
+            position: absolute;
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            background-color: #4ade80;
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        /* Glass Card Effect */
+        .card-glass {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            transition: all 0.5s;
+        }
+
+        .card-glass:hover {
+            border-color: rgba(34, 211, 238, 0.5);
+            box-shadow: 0 20px 25px -5px rgba(34, 211, 238, 0.1),
+                0 8px 10px -6px rgba(34, 211, 238, 0.1);
+        }
+
+        /* Services Section */
+        .services-section {
+            padding: 80px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .purple {
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            background-color: rgba(168, 85, 247, 0.1);
+        }
+
+        .section-badge span {
+            font-size: 0.875rem;
+            color: #d8b4fe;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title-line1 {
+            background: linear-gradient(to right, #fff, #e5e7eb);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .section-title-line2 {
+            background: linear-gradient(to right, #22d3ee, #c084fc);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .section-description {
+            font-size: 1.25rem;
+            color: #d1d5db;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .service-content {
+            padding: 1.5rem;
+            flex: 1;
+        }
+
+        .service-icon {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.05);
+        }
+
+        .cyan {
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            background: linear-gradient(to bottom right, rgba(6, 182, 212, 0.2), rgba(59, 130, 246, 0.2));
+        }
+
+        .green {
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            background: linear-gradient(to bottom right, rgba(74, 222, 128, 0.2), rgba(52, 211, 153, 0.2));
+        }
+
+        .purple {
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            background: linear-gradient(to bottom right, rgba(168, 85, 247, 0.2), rgba(236, 72, 153, 0.2));
+        }
+
+        .orange {
+            border: 1px solid rgba(251, 146, 60, 0.3);
+            background: linear-gradient(to bottom right, rgba(251, 146, 60, 0.2), rgba(239, 68, 68, 0.2));
+        }
+
+        .red {
+            border: 1px solid rgba(248, 113, 113, 0.3);
+            background: linear-gradient(to bottom right, rgba(248, 113, 113, 0.2), rgba(236, 72, 153, 0.2));
+        }
+
+        .teal {
+            border: 1px solid rgba(45, 212, 191, 0.3);
+            background: linear-gradient(to bottom right, rgba(45, 212, 191, 0.2), rgba(6, 182, 212, 0.2));
+        }
+
+        .service-icon i {
+            font-size: 1.5rem;
+        }
+
+        .cyan i {
+            color: #22d3ee;
+        }
+
+        .green i {
+            color: #4ade80;
+        }
+
+        .purple i {
+            color: #c084fc;
+        }
+
+        .orange i {
+            color: #fb923c;
+        }
+
+        .red i {
+            color: #f87171;
+        }
+
+        .teal i {
+            color: #2dd4bf;
+        }
+
+        .service-content h3 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-content p {
+            color: #d1d5db;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .service-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 1rem;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .service-card:hover .service-image img {
+            transform: scale(1.03);
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 80px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .blue {
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+
+        .blue span {
+            color: #93c5fd;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .feature-card {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .feature-icon i {
+            font-size: 1.25rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .feature-card p {
+            font-size: 0.875rem;
+            color: #d1d5db;
+        }
+
+        .about-image-container {
+            position: relative;
+        }
+
+        .about-image-glass {
+            position: relative;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+        }
+
+        .about-image-glass img {
+            width: 100%;
+            height: auto;
+            border-radius: 1rem;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 80px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .green {
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            background-color: rgba(74, 222, 128, 0.1);
+        }
+
+        .green span {
+            color: #6ee7b7;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            text-align: center;
+            border-radius: 0.75rem;
+            transition: all 0.5s;
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .team-card:hover {
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 20px 25px -5px rgba(168, 85, 247, 0.1),
+                0 8px 10px -6px rgba(168, 85, 247, 0.1);
+        }
+
+        .team-member {
+            padding: 2rem;
+        }
+
+        .profile-img {
+            width: 8rem;
+            height: 8rem;
+            border-radius: 9999px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(to bottom right, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .team-card:hover .profile-img {
+            transform: scale(1.05);
+        }
+
+        .profile-img.ceo {
+            background: linear-gradient(to bottom right, rgba(59, 130, 246, 0.2), rgba(147, 51, 234, 0.2));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .profile-img.cto {
+            background: linear-gradient(to bottom right, rgba(16, 185, 129, 0.2), rgba(59, 130, 246, 0.2));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .profile-img.design {
+            background: linear-gradient(to bottom right, rgba(236, 72, 153, 0.2), rgba(245, 158, 11, 0.2));
+            border: 1px solid rgba(236, 72, 153, 0.3);
+        }
+
+        .team-member h3 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .position {
+            color: #d1d5db;
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+        }
+
+        .bio {
+            color: #9ca3af;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .contact-links a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-links a:first-child:hover {
+            color: #22d3ee;
+        }
+
+        .contact-links a:last-child:hover {
+            color: #4ade80;
+        }
+
+        .team-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 4rem auto 0;
+        }
+
+        .stat-card {
+            padding: 1.5rem;
+            border-radius: 1rem;
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.25rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .cyan-blue {
+            background: linear-gradient(to right, #22d3ee, #60a5fa);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .green-emerald {
+            background: linear-gradient(to right, #4ade80, #34d399);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .purple-pink {
+            background: linear-gradient(to right, #c084fc, #f472b6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .stat-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-desc {
+            font-size: 0.875rem;
+            color: 9ca3af;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 80px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .pink {
+            border: 1px solid rgba(244, 114, 182, 0.3);
+            background-color: rgba(244, 114, 182, 0.1);
+        }
+
+        .pink span {
+            color: #f9a8d4;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .contact-form-container {
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-form-container h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-form-container p {
+            color: #d1d5db;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .form-field {
+            margin-bottom: 1rem;
+        }
+
+        .form-field label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #e5e7eb;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-field input,
+        .form-field textarea {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .form-field input::placeholder,
+        .form-field textarea::placeholder {
+            color: #9ca3af;
+        }
+
+        .form-field input:focus,
+        .form-field textarea:focus {
+            outline: none;
+            border-color: rgba(34, 211, 238, 0.5);
+            box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .form-field textarea {
+            resize: vertical;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-card {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .contact-card:hover {
+            border-color: rgba(34, 211, 238, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .contact-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-card p {
+            color: #d1d5db;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card a {
+            color: #22d3ee;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .contact-card a:hover {
+            color: #06b6d4;
+        }
+
+        address {
+            font-style: normal;
+            color: #d1d5db;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .benefits-card {
+            padding: 2rem;
+            border-radius: 0.75rem;
+            background: linear-gradient(to bottom right, rgba(6, 182, 212, 0.1), rgba(168, 85, 247, 0.1));
+            border: 1px solid rgba(34, 211, 238, 0.2);
+        }
+
+        .benefits-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            background: linear-gradient(to right, #22d3ee, #c084fc);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .benefits-card ul {
+            list-style: none;
+        }
+
+        .benefits-card li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        /* New animated SVG check marks */
+        .check-svg {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .check-path {
+            stroke-dasharray: 22;
+            stroke-dashoffset: 22;
+            animation: draw 0.6s forwards;
+            animation-delay: calc(var(--animation-order) * 0.2s);
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 2;
+        }
+
+        .cyan-check {
+            stroke: #22d3ee;
+            fill: rgba(34, 211, 238, 0.1);
+        }
+
+        .green-check {
+            stroke: #4ade80;
+            fill: rgba(74, 222, 128, 0.1);
+        }
+
+        .purple-check {
+            stroke: #c084fc;
+            fill: rgba(192, 132, 252, 0.1);
+        }
+
+        .orange-check {
+            stroke: #fb923c;
+            fill: rgba(251, 146, 60, 0.1);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 3rem 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .footer-link {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: #22d3ee;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #d1d5db;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background-color: rgba(34, 211, 238, 0.2);
+            color: #22d3ee;
+            transform: translateY(-2px);
+        }
+
+        .footer p {
+            color: #9ca3af;
+            font-size: 0.875rem;
+        }
+
+        .heart {
+            color: #f87171;
+        }
+
+        /* Responsive Styles */
+        @media (min-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr 1fr;
+                align-items: center;
+            }
+
+            .hero-buttons {
+                flex-direction: row;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(3, 1fr);
+                margin-top: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr 1fr;
+                align-items: center;
+            }
+
+            .hero-image-glass {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .desktop-nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero-image-glass {
+                height: 250px;
+                padding: 1rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+        }
+
+        /* Custom Classes */
+        .gradient-text {
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid rgba(34, 211, 238, 0.5);
+            color: #22d3ee;
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            background: #22d3ee1a;
+        }
+
+        .logo-image {
+            width: 160px;
+            height: 100px;
+        }
+
+        /* Schedule Button Styles */
+        .btn-schedule {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(to right, #06b6d4, #a855f7);
+            color: white;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s;
+            margin-top: 0.5rem;
+        }
+
+        .btn-schedule:hover {
+            background: linear-gradient(to right, #0891b2, #9333ea);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(6, 182, 212, 0.25);
+        }
+
+        /* Form status message styles */
+        .form-status {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .form-status.success {
+            background-color: rgba(74, 222, 128, 0.1);
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            color: #4ade80;
+            display: block;
+        }
+
+        .form-status.error {
+            background-color: rgba(248, 113, 113, 0.1);
+            border: 1px solid rgba(248, 113, 113, 0.3);
+            color: #f87171;
+            display: block;
+        }
+
+        .form-status.loading {
+            background-color: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #3b82f6;
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-black text-white overflow-x-hidden">
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="gradient-overlay"></div>
+        <div class="pulse-circle-1"></div>
+        <div class="pulse-circle-2"></div>
+        <div class="pulse-circle-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container mx-auto flex h-16 items-center justify-between px-4 md:px-6 relative z-10">
+            <div class="flex items-center space-x-2">
+                <div class="relative">
+                    <img src="logo19.png" alt="BinaryImperium Logo" class="logo-image">
+                    <div class="absolute inset-0 text-cyan-400 animate-ping opacity-20"></div>
+                </div>
+
+            </div>
+
+            <nav class="hidden md:flex items-center space-x-8 mobile-nav">
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#team" class="nav-link">Team</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+
+            <button class="md:hidden text-gray-300 hover:text-cyan-400 p-2 mobile-menu-btn">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#services" class="mobile-nav-link">Services</a>
+            <a href="#about" class="mobile-nav-link">About</a>
+            <a href="#team" class="mobile-nav-link">Team</a>
+            <a href="#contact" class="mobile-nav-link">Contact</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-20 md:py-32 relative z-10">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center hero-grid">
+                <div class="space-y-8">
+                    <div class="space-y-6">
+                        <div
+                            class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 backdrop-blur-sm hero-badge">
+                            <div class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse pulse-dot"></div>
+                            <span class="text-sm text-cyan-300">Leading SaaS Development Agency</span>
+                        </div>
+
+                        <h1 class="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl hero-title">
+                            <span
+                                class="gradient-text bg-gradient-to-r from-white via-cyan-200 to-purple-200 hero-title-line1">
+                                Build Better
+                            </span>
+                            <br>
+                            <span
+                                class="gradient-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 hero-title-line2">
+                                Software
+                            </span>
+                            <br>
+                            <span class="text-white hero-title-line3">Faster</span>
+                        </h1>
+
+                        <p class="text-xl text-gray-300 max-w-[600px] leading-relaxed hero-description">
+                            We help startups and enterprises build scalable SaaS applications with modern development
+                            practices, seamless collaboration, and cutting-edge technology.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 hero-buttons">
+                        <a href="https://www.youtube.com/" target="_blank"
+                            class="btn btn-outline text-lg px-8 py-4 rounded-lg font-medium">
+                            View Our Work
+                        </a>
+                        <a href="#contact" class="btn btn-gradient text-lg px-8 py-4 rounded-lg font-medium">
+                            Start a Project
+                        </a>
+                    </div>
+
+                    <div class="stats-container">
+                        <div class="stat-item">
+                            <div class="stat-icon cyan">
+                                <i class="fas fa-rocket text-cyan-400"></i>
+                            </div>
+                            <div class="stat-value cyan-purple">50+</div>
+                            <div class="stat-label">Projects Delivered</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon purple">
+                                <i class="fas fa-heart text-purple-400"></i>
+                            </div>
+                            <div class="stat-value purple-pink">98%</div>
+                            <div class="stat-label">Client Satisfaction</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon teal">
+                                <i class="fas fa-headset text-teal-400"></i>
+                            </div>
+                            <div class="stat-value pink-cyan">7/7</div>
+                            <div class="stat-label">Support</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative hero-image-container">
+                    <div class="hero-image-glass">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=700&q=80"
+                            alt="Software Development Dashboard" class="rounded-2xl w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 relative z-10 services-section">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center space-y-6 mb-16 section-header">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 backdrop-blur-sm purple section-badge">
+                    <span class="text-sm text-purple-300">Our Services</span>
+                </div>
+                <h2 class="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl section-title">
+                    <span class="gradient-text bg-gradient-to-r from-white to-gray-300 section-title-line1">
+                        Complete Development
+                    </span>
+                    <br>
+                    <span class="gradient-text bg-gradient-to-r from-cyan-400 to-purple-400 section-title-line2">
+                        Solutions
+                    </span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-[800px] mx-auto section-description">
+                    From ideation to deployment, we provide end-to-end development services to bring your SaaS vision to
+                    life.
+                </p>
+            </div>
+
+            <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 services-grid">
+                <!-- Service Card 1 -->
+                <div class="card-glass rounded-xl p-6 group service-card">
+                    <div class="pb-4 service-content">
+                        <div class="service-icon cyan">
+                            <i class="fas fa-users text-cyan-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-white text-xl font-bold mb-2">Team Collaboration</h3>
+                        <p class="text-gray-300">
+                            Streamline your team's workflow with advanced collaboration tools and real-time
+                            communication systems.
+                        </p>
+                    </div>
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80"
+                            alt="Team Collaboration">
+                        <div class="image-overlay"></div>
+                    </div>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="card-glass rounded-xl p-6 group service-card">
+                    <div class="pb-4 service-content">
+                        <div class="service-icon green">
+                            <i class="fas fa-code-branch text-green-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-white text-xl font-bold mb-2">Version Control</h3>
+                        <p class="text-gray-300">
+                            Implement robust version control systems with Git workflows, branching strategies, and
+                            automated deployments.
+                        </p>
+                    </div>
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80"
+                            alt="Version Control">
+                        <div class="image-overlay"></div>
+                    </div>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="card-glass rounded-xl p-6 group service-card">
+                    <div class="pb-4 service-content">
+                        <div class="service-icon purple">
+                            <i class="fas fa-palette text-purple-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-white text-xl font-bold mb-2">Design Integration</h3>
+                        <p class="text-gray-300">
+                            Seamlessly integrate design systems and UI/UX workflows into your development process.
+                        </p>
+                    </div>
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1496171367470-9ed9a91ea931?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80"
+                            alt="Design Integration">
+                        <div class="image-overlay"></div>
+                    </div>
+                </div>
+
+                <!-- Service Card 4 -->
+                <div class="card-glass rounded-xl p-6 group service-card">
+                    <div class="pb-4 service-content">
+                        <div class="service-icon orange">
+                            <i class="fas fa-tasks text-orange-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-white text-xl font-bold mb-2">Project Management</h3>
+                        <p class="text-gray-300">
+                            Agile project management with sprint planning, task tracking, and progress monitoring tools.
+                        </p>
+                    </div>
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80"
+                            alt="Project Management">
+                        <div class="image-overlay"></div>
+                    </div>
+                </div>
+
+                <!-- Service Card 5 -->
+                <div class="card-glass rounded-xl p-6 group service-card">
+                    <div class="pb-4 service-content">
+                        <div class="service-icon red">
+                            <i class="fas fa-search text-red-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-white text-xl font-bold mb-2">Code Review</h3>
+                        <p class="text-gray-300">
+                            Comprehensive code review processes with automated testing, quality checks, and peer
+                            reviews.
+                        </p>
+                    </div>
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80"
+                            alt="Code Review">
+                        <div class="image-overlay"></div>
+                    </div>
+                </div>
+
+                <!-- Service Card 6 -->
+                <div class="card-glass rounded-xl p-6 group service-card">
+                    <div class="pb-4 service-content">
+                        <div class="service-icon teal">
+                            <i class="fas fa-mobile-alt text-teal-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-white text-xl font-bold mb-2">Mobile Development</h3>
+                        <p class="text-gray-300">
+                            Cross-platform mobile app development with React Native, Flutter, and native iOS/Android
+                            solutions.
+                        </p>
+                    </div>
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80"
+                            alt="Mobile Development">
+                        <div class="image-overlay"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 relative z-10 about-section">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center about-grid">
+                <div class="space-y-8 about-content">
+                    <div class="space-y-6">
+                        <div
+                            class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 backdrop-blur-sm blue section-badge">
+                            <span class="text-sm text-blue-300">About BinaryImperium</span>
+                        </div>
+                        <h2 class="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl section-title">
+                            <span class="gradient-text bg-gradient-to-r from-white to-gray-300 section-title-line1">
+                                Building the Future of
+                            </span>
+                            <br>
+                            <span
+                                class="gradient-text bg-gradient-to-r from-cyan-400 to-purple-400 section-title-line2">
+                                SaaS Development
+                            </span>
+                        </h2>
+                        <p class="text-lg text-gray-300 leading-relaxed section-description">
+                            We're a team of passionate developers, designers, and strategists who believe in the power
+                            of well-crafted software. Our mission is to help businesses transform their ideas into
+                            scalable, user-friendly SaaS applications.
+                        </p>
+                    </div>
+
+                    <div class="grid gap-6 sm:grid-cols-2 features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon cyan">
+                                <i class="fas fa-bullseye text-cyan-400"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold mb-1 text-white">Mission-Driven</h3>
+                                <p class="text-sm text-gray-300">Focused on delivering exceptional results that drive
+                                    business growth.</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon green">
+                                <i class="fas fa-bolt text-green-400"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold mb-1 text-white">Fast Delivery</h3>
+                                <p class="text-sm text-gray-300">Agile development process ensures quick turnaround
+                                    times.</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon purple">
+                                <i class="fas fa-shield-alt text-purple-400"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold mb-1 text-white">Secure & Scalable</h3>
+                                <p class="text-sm text-gray-300">Built with security and scalability as core principles.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon orange">
+                                <i class="fas fa-users text-orange-400"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold mb-1 text-white">Expert Team</h3>
+                                <p class="text-sm text-gray-300">Experienced professionals with proven track records.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative about-image-container">
+                    <div class="about-image-glass">
+                        <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800&q=80"
+                            alt="Development Workspace" class="rounded-2xl w-full h-auto">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-3xl"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-20 relative z-10 team-section">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center space-y-6 mb-16 section-header">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-green-500/30 bg-green-500/10 backdrop-blur-sm green section-badge">
+                    <span class="text-sm text-green-300">Our Team</span>
+                </div>
+                <h2 class="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl section-title">
+                    <span class="gradient-text bg-gradient-to-r from-white to-gray-300 section-title-line1">
+                        Meet the
+                    </span>
+                    <br>
+                    <span class="gradient-text bg-gradient-to-r from-cyan-400 to-purple-400 section-title-line2">
+                        Leadership
+                    </span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-[800px] mx-auto section-description">
+                    Our experienced leadership team brings together decades of expertise in software development and
+                    business strategy.
+                </p>
+            </div>
+
+            <div class="team-grid">
+                <!-- Team Member 1 - CEO -->
+                <div class="team-card">
+                    <div class="team-member">
+                        <div class="profile-img ceo animate-float">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h3 class="text-white text-xl font-bold">Yani Chioukh </h3>
+                        <p class="position">
+                            <i class="fas fa-globe text-cyan-400 mr-1"></i> CEO & Co-founder
+                        </p>
+                        <p class="bio">
+                            Guides the company’s strategic direction with a focus on growth, innovation, and SaaS
+                            product development. Passionate about building impactful solutions and leading teams toward
+                            long-term success.
+                        </p>
+                        <div class="contact-links">
+                            <a href="mailto:yanichioukh1@gmail.com">
+                                <i class="far fa-envelope"></i>
+                                Email
+                            </a>
+                            <a href="https://wa.me/213542329917">
+                                <i class="fab fa-whatsapp"></i>
+                                WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 - CTO -->
+                <div class="team-card">
+                    <div class="team-member">
+                        <div class="profile-img cto animate-float">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3 class="text-white text-xl font-bold">Ghilas Larbi</h3>
+                        <p class="position">
+                            <i class="fas fa-globe text-cyan-400 mr-1"></i> CTO & Co-founder
+                        </p>
+                        <p class="bio">
+                            Oversees the technical vision and system architecture. Brings strong expertise in cloud
+                            technologies and scalable infrastructure, ensuring products are built to perform and grow
+                            seamlessly.
+                        </p>
+                        <div class="contact-links">
+                            <a href="mailto:larbi.ghiles@proton.me">
+                                <i class="far fa-envelope"></i>
+                                Email
+                            </a>
+                            <a href="https://wa.me/213792840492">
+                                <i class="fab fa-whatsapp"></i>
+                                WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 - Design Lead -->
+                <div class="team-card">
+                    <div class="team-member">
+                        <div class="profile-img design animate-float">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3 class="text-white text-xl font-bold">Belaid Ben Aissou</h3>
+                        <p class="position">
+                            <i class="fas fa-globe text-cyan-400 mr-1"></i> Design Lead
+                        </p>
+                        <p class="bio">
+                            Shapes the creative direction and user experience of the company’s products. Dedicated to
+                            designing intuitive, modern interfaces that merge aesthetics with functionality to deliver a
+                            smooth digital experience.
+                        </p>
+                        <div class="contact-links">
+                            <a href="mailto:bld.bns5@gmail.com">
+                                <i class="far fa-envelope"></i>
+                                Email
+                            </a>
+                            <a href="https://wa.me/12345678902">
+                                <i class="fab fa-whatsapp"></i>
+                                WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center">
+                <div class="team-stats">
+                    <div class="stat-card">
+                        <div class="stat-value cyan-blue">7+</div>
+                        <div class="stat-title">Team Members</div>
+                        <div class="stat-desc">Across different specializations</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value green-emerald">30+</div>
+                        <div class="stat-title">Certifications</div>
+                        <div class="stat-desc">In various technologies</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value purple-pink">7/7</div>
+                        <div class="stat-title">Availability</div>
+                        <div class="stat-desc">Support and maintenance</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 relative z-10 contact-section">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center space-y-6 mb-16 section-header">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-pink-500/30 bg-pink-500/10 backdrop-blur-sm pink section-badge">
+                    <span class="text-sm text-pink-300">Get In Touch</span>
+                </div>
+                <h2 class="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl section-title">
+                    <span class="gradient-text bg-gradient-to-r from-white to-gray-300 section-title-line1">
+                        Ready to Start Your
+                    </span>
+                    <br>
+                    <span class="gradient-text bg-gradient-to-r from-cyan-400 to-purple-400 section-title-line2">
+                        Project?
+                    </span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-[800px] mx-auto section-description">
+                    Let's discuss how we can help bring your SaaS idea to life. Get in touch with our team today.
+                </p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="space-y-8">
+                    <div class="contact-form-container">
+                        <div class="p-6">
+                            <h3 class="text-white text-2xl font-bold mb-2">Send us a message</h3>
+                            <p class="text-gray-300 mb-6">
+                                Fill out the form below and we'll get back to you within 24 hours.
+                            </p>
+                            <form id="contactForm" class="space-y-6">
+                                <div class="form-row">
+                                    <div class="form-field">
+                                        <label>First Name</label>
+                                        <input type="text" id="firstName" name="firstName" placeholder="John" required>
+                                    </div>
+                                    <div class="form-field">
+                                        <label>Last Name</label>
+                                        <input type="text" id="lastName" name="lastName" placeholder="Doe" required>
+                                    </div>
+                                </div>
+                                <div class="form-field">
+                                    <label>Email</label>
+                                    <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                                </div>
+                                <div class="form-field">
+                                    <label>Company</label>
+                                    <input type="text" id="company" name="company" placeholder="Your Company">
+                                </div>
+                                <div class="form-field">
+                                    <label>Project Details</label>
+                                    <textarea id="projectDetails" name="projectDetails"
+                                        placeholder="Tell us about your project requirements, timeline, and budget..."
+                                        rows="5" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-gradient w-full py-3 rounded-lg font-medium">
+                                    Send Message
+                                </button>
+                                <div id="formStatus" class="form-status"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-8 contact-info">
+                    <div class="contact-card">
+                        <div class="contact-icon cyan">
+                            <i class="far fa-envelope text-cyan-400 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-white text-lg mb-2">Email Us</h3>
+                            <p class="text-gray-300 mb-3">Get in touch via email</p>
+                            <a href="mailto:hello@binaryimperium.com">hello@binaryimperium.com</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon purple">
+                            <i class="far fa-calendar-alt text-purple-400 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-white text-lg mb-2">Book a Meeting</h3>
+                            <p class="text-gray-300 mb-3">Schedule a quick video call with our team</p>
+                            <a href="https://calendly.com/yanichioukh1" target="_blank" class="btn-schedule">
+                                <i class="fas fa-video mr-2"></i> Schedule a Call
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon teal">
+                            <i class="fas fa-globe text-teal-400 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-white text-lg mb-2">We are Remote</h3>
+                            <p class="text-gray-300 mb-3">Serving clients worldwide</p>
+                            <address>We are a 100% Remote Agency<br>Serving Clients Worldwide</address>
+                        </div>
+                    </div>
+
+                    <div class="benefits-card">
+                        <h3>Why Choose BinaryImperium?</h3>
+                        <ul>
+                            <li style="--animation-order: 1">
+                                <div class="check-svg">
+                                    <svg viewBox="0 0 24 24" fill="none">
+                                        <circle cx="12" cy="12" r="9" class="cyan-check" />
+                                        <path d="M7 12.5L10 15.5L17 8.5" class="check-path cyan-check" />
+                                    </svg>
+                                </div>
+                                <span>Free initial consultation and project assessment</span>
+                            </li>
+                            <li style="--animation-order: 2">
+                                <div class="check-svg">
+                                    <svg viewBox="0 0 24 24" fill="none">
+                                        <circle cx="12" cy="12" r="9" class="green-check" />
+                                        <path d="M7 12.5L10 15.5L17 8.5" class="check-path green-check" />
+                                    </svg>
+                                </div>
+                                <span>Transparent pricing with no hidden costs</span>
+                            </li>
+                            <li style="--animation-order: 3">
+                                <div class="check-svg">
+                                    <svg viewBox="0 0 24 24" fill="none">
+                                        <circle cx="12" cy="12" r="9" class="purple-check" />
+                                        <path d="M7 12.5L10 15.5L17 8.5" class="check-path purple-check" />
+                                    </svg>
+                                </div>
+                                <span>Dedicated project manager for each client</span>
+                            </li>
+                            <li style="--animation-order: 4">
+                                <div class="check-svg">
+                                    <svg viewBox="0 0 24 24" fill="none">
+                                        <circle cx="12" cy="12" r="9" class="orange-check" />
+                                        <path d="M7 12.5L10 15.5L17 8.5" class="check-path orange-check" />
+                                    </svg>
+                                </div>
+                                <span>Post-launch support and maintenance</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="#services" class="footer-link">Services</a>
+                <a href="#about" class="footer-link">About</a>
+                <a href="#team" class="footer-link">Team</a>
+                <a href="#contact" class="footer-link">Contact</a>
+                <a href="privacy.html" class="footer-link">Privacy Policy</a>
+                <a href="service.html" class="footer-link">Terms of Service</a>
+            </div>
+
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/binary-imperium-94408b386/" class="social-link">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61581008766519&mibextid=ZbWKwL" class="social-link">
+                    <i class="fab fa-facebook-f"></i> </a>
+                <a href="https://x.com/binary_imperium" class="social-link">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://www.instagram.com/binary_imperium?igsh=bWsydm9meTdlbHIx" class="social-link">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+
+            <p>
+                © 2025 BinaryImperium. All rights reserved.
+            </p>
+            <p>
+                Built with <span class="heart">❤️</span> for the developer community
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+
+                    // Close mobile menu if open
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Animate check marks when in viewport
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const checkPaths = entry.target.querySelectorAll('.check-path');
+                    checkPaths.forEach(path => {
+                        // Reset animation to trigger again
+                        path.style.animation = 'none';
+                        setTimeout(() => {
+                            path.style.animation = '';
+                        }, 10);
+                    });
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.benefits-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Form submission handling
+        document.getElementById('contactForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const formStatus = document.getElementById('formStatus');
+            formStatus.className = 'form-status loading';
+            formStatus.textContent = 'Sending your message...';
+
+            try {
+                // Get form data
+                const formData = {
+                    firstName: document.getElementById('firstName').value,
+                    lastName: document.getElementById('lastName').value,
+                    email: document.getElementById('email').value,
+                    company: document.getElementById('company').value,
+                    projectDetails: document.getElementById('projectDetails').value,
+                    date: new Date().toLocaleString()
+                };
+
+                // Generate PDF
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                // Add content to PDF
+                doc.setFontSize(22);
+                doc.text('BinaryImperium Contact Form Submission', 20, 20);
+                doc.setFontSize(16);
+                doc.text('Client Information', 20, 40);
+
+                doc.setFontSize(12);
+                let yPosition = 50;
+                doc.text(`Name: ${formData.firstName} ${formData.lastName}`, 20, yPosition);
+                yPosition += 10;
+                doc.text(`Email: ${formData.email}`, 20, yPosition);
+                yPosition += 10;
+                doc.text(`Company: ${formData.company || 'Not provided'}`, 20, yPosition);
+                yPosition += 10;
+                doc.text(`Submission Date: ${formData.date}`, 20, yPosition);
+                yPosition += 15;
+
+                doc.setFontSize(16);
+                doc.text('Project Details', 20, yPosition);
+                yPosition += 10;
+
+                doc.setFontSize(12);
+                const splitDetails = doc.splitTextToSize(formData.projectDetails, 170);
+                doc.text(splitDetails, 20, yPosition);
+
+                // Generate PDF as data URL
+                const pdfDataUrl = doc.output('datauristring');
+
+                // Send email with EmailJS
+                const emailParams = {
+                    to_email: "yanichioukh1@gmail.com",
+                    from_name: `${formData.firstName} ${formData.lastName}`,
+                    from_email: formData.email,
+                    company: formData.company,
+                    message: formData.projectDetails,
+                    pdf_data: pdfDataUrl
+                };
+
+                // Send the email using EmailJS
+                await emailjs.send('service_0ju04fi', 'template_zphv9mo', emailParams);
+
+                // Show success message
+                formStatus.className = 'form-status success';
+                formStatus.textContent = 'Message sent successfully! We will get back to you soon.';
+
+                // Reset form
+                document.getElementById('contactForm').reset();
+
+            } catch (error) {
+                console.error('Error sending message:', error);
+                formStatus.className = 'form-status error';
+                formStatus.textContent = 'There was an error sending your message. Please try again or contact us directly at hello@binaryimperium.com';
+            }
+        });
+    </script>
+</body>
+
+</html>
