@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BinaryImperium - SaaS Development Experts</title>
+    <title>Binary Imperium - SaaS Development Experts</title>
     <link rel="icon" href="logo.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -35,6 +35,10 @@
             position: relative;
         }
 
+        body[dir="rtl"] {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
         .app {
             position: relative;
         }
@@ -44,6 +48,99 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            position: relative;
+            display: inline-block;
+        }
+
+        .language-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            color: #d1d5db;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .language-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(34, 211, 238, 0.5);
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 140px;
+            background: rgba(0, 0, 0, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 8px 0;
+            margin-top: 8px;
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: none;
+        }
+
+        .language-dropdown.active {
+            display: block;
+        }
+
+        .language-option {
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .language-option:hover {
+            background: rgba(34, 211, 238, 0.1);
+        }
+
+        .language-option.active {
+            background: rgba(34, 211, 238, 0.2);
+        }
+
+        /* RTL support */
+        body[dir="rtl"] .header .container,
+        body[dir="rtl"] .desktop-nav,
+        body[dir="rtl"] .logo-container,
+        body[dir="rtl"] .hero-buttons,
+        body[dir="rtl"] .stats-container,
+        body[dir="rtl"] .feature-card,
+        body[dir="rtl"] .contact-links,
+        body[dir="rtl"] .footer-links,
+        body[dir="rtl"] .social-links,
+        body[dir="rtl"] .form-row,
+        body[dir="rtl"] .benefits-card li,
+        body[dir="rtl"] .team-stats,
+        body[dir="rtl"] .service-card,
+        body[dir="rtl"] .contact-card {
+            direction: rtl;
+        }
+
+        body[dir="rtl"] .desktop-nav {
+            gap: 1.5rem;
+        }
+
+        body[dir="rtl"] .nav-link::after {
+            left: auto;
+            right: 0;
+        }
+
+        body[dir="rtl"] .hero-badge,
+        body[dir="rtl"] .section-badge {
+            direction: ltr;
+            display: inline-flex;
         }
 
         /* Animated Background */
@@ -768,7 +865,7 @@
             padding: 1rem;
             border-radius: 0.75rem;
             backdrop-filter: blur(10px);
-            background-color: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
@@ -1350,6 +1447,11 @@
                 align-items: center;
                 gap: 1rem;
             }
+
+            .language-switcher {
+                margin-left: auto;
+                margin-right: 15px;
+            }
         }
 
         /* Custom Classes */
@@ -1441,17 +1543,37 @@
         <div class="container mx-auto flex h-16 items-center justify-between px-4 md:px-6 relative z-10">
             <div class="flex items-center space-x-2">
                 <div class="relative">
-                    <img src="logo19.png" alt="BinaryImperium Logo" class="logo-image">
+                    <img src="logo19.png" alt="Binary Imperium Logo" class="logo-image">
                     <div class="absolute inset-0 text-cyan-400 animate-ping opacity-20"></div>
                 </div>
 
             </div>
 
             <nav class="hidden md:flex items-center space-x-8 mobile-nav">
-                <a href="#services" class="nav-link">Services</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#team" class="nav-link">Team</a>
-                <a href="#contact" class="nav-link">Contact</a>
+                <a href="#services" class="nav-link" data-translate="nav.services">Services</a>
+                <a href="#about" class="nav-link" data-translate="nav.about">About</a>
+                <a href="#team" class="nav-link" data-translate="nav.team">Team</a>
+                <a href="#contact" class="nav-link" data-translate="nav.contact">Contact</a>
+                
+                <!-- Language Switcher -->
+                <div class="language-switcher">
+                    <div class="language-btn" id="languageBtn">
+                        <i class="fas fa-globe"></i>
+                        <span data-translate="language">EN</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="language-dropdown" id="languageDropdown">
+                        <div class="language-option active" data-lang="en">
+                            <span>English</span>
+                        </div>
+                        <div class="language-option" data-lang="fr">
+                            <span>Français</span>
+                        </div>
+                        <div class="language-option" data-lang="ar">
+                            <span>العربية</span>
+                        </div>
+                    </div>
+                </div>
             </nav>
 
             <button class="md:hidden text-gray-300 hover:text-cyan-400 p-2 mobile-menu-btn">
@@ -1461,10 +1583,21 @@
 
         <!-- Mobile Menu -->
         <div class="mobile-menu" id="mobileMenu">
-            <a href="#services" class="mobile-nav-link">Services</a>
-            <a href="#about" class="mobile-nav-link">About</a>
-            <a href="#team" class="mobile-nav-link">Team</a>
-            <a href="#contact" class="mobile-nav-link">Contact</a>
+            <a href="#services" class="mobile-nav-link" data-translate="nav.services">Services</a>
+            <a href="#about" class="mobile-nav-link" data-translate="nav.about">About</a>
+            <a href="#team" class="mobile-nav-link" data-translate="nav.team">Team</a>
+            <a href="#contact" class="mobile-nav-link" data-translate="nav.contact">Contact</a>
+            
+            <!-- Mobile Language Switcher -->
+            <div class="mobile-nav-link language-option active" data-lang="en">
+                <span>English</span>
+            </div>
+            <div class="mobile-nav-link language-option" data-lang="fr">
+                <span>Français</span>
+            </div>
+            <div class="mobile-nav-link language-option" data-lang="ar">
+                <span>العربية</span>
+            </div>
         </div>
     </header>
 
@@ -1477,35 +1610,35 @@
                         <div
                             class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 backdrop-blur-sm hero-badge">
                             <div class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse pulse-dot"></div>
-                            <span class="text-sm text-cyan-300">Leading SaaS Development Agency</span>
+                            <span class="text-sm text-cyan-300" data-translate="hero.badge">Leading SaaS Development Agency</span>
                         </div>
 
                         <h1 class="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl hero-title">
                             <span
-                                class="gradient-text bg-gradient-to-r from-white via-cyan-200 to-purple-200 hero-title-line1">
+                                class="gradient-text bg-gradient-to-r from-white via-cyan-200 to-purple-200 hero-title-line1" data-translate="hero.title1">
                                 Build Better
                             </span>
                             <br>
                             <span
-                                class="gradient-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 hero-title-line2">
+                                class="gradient-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 hero-title-line2" data-translate="hero.title2">
                                 Software
                             </span>
                             <br>
-                            <span class="text-white hero-title-line3">Faster</span>
+                            <span class="text-white hero-title-line3" data-translate="hero.title3">Faster</span>
                         </h1>
 
-                        <p class="text-xl text-gray-300 max-w-[600px] leading-relaxed hero-description">
+                        <p class="text-xl text-gray-300 max-w-[600px] leading-relaxed hero-description" data-translate="hero.description">
                             We help startups and enterprises build scalable SaaS applications with modern development
                             practices, seamless collaboration, and cutting-edge technology.
                         </p>
                     </div>
 
                     <div class="flex flex-col sm:flex-row gap-4 hero-buttons">
-                        <a href="https://www.youtube.com/" target="_blank"
-                            class="btn btn-outline text-lg px-8 py-4 rounded-lg font-medium">
+                        <a href="work.html" 
+                            class="btn btn-outline text-lg px-8 py-4 rounded-lg font-medium" data-translate="hero.buttonWork">
                             View Our Work
                         </a>
-                        <a href="#contact" class="btn btn-gradient text-lg px-8 py-4 rounded-lg font-medium">
+                        <a href="#contact" class="btn btn-gradient text-lg px-8 py-4 rounded-lg font-medium" data-translate="hero.buttonProject">
                             Start a Project
                         </a>
                     </div>
@@ -1516,21 +1649,21 @@
                                 <i class="fas fa-rocket text-cyan-400"></i>
                             </div>
                             <div class="stat-value cyan-purple">50+</div>
-                            <div class="stat-label">Projects Delivered</div>
+                            <div class="stat-label" data-translate="hero.stat1">Projects Delivered</div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-icon purple">
                                 <i class="fas fa-heart text-purple-400"></i>
                             </div>
                             <div class="stat-value purple-pink">98%</div>
-                            <div class="stat-label">Client Satisfaction</div>
+                            <div class="stat-label" data-translate="hero.stat2">Client Satisfaction</div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-icon teal">
                                 <i class="fas fa-headset text-teal-400"></i>
                             </div>
                             <div class="stat-value pink-cyan">7/7</div>
-                            <div class="stat-label">Support</div>
+                            <div class="stat-label" data-translate="hero.stat3">Support</div>
                         </div>
                     </div>
                 </div>
@@ -1551,18 +1684,18 @@
             <div class="text-center space-y-6 mb-16 section-header">
                 <div
                     class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 backdrop-blur-sm purple section-badge">
-                    <span class="text-sm text-purple-300">Our Services</span>
+                    <span class="text-sm text-purple-300" data-translate="services.badge">Our Services</span>
                 </div>
                 <h2 class="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl section-title">
-                    <span class="gradient-text bg-gradient-to-r from-white to-gray-300 section-title-line1">
+                    <span class="gradient-text bg-gradient-to-r from-white to-gray-300 section-title-line1" data-translate="services.title1">
                         Complete Development
                     </span>
                     <br>
-                    <span class="gradient-text bg-gradient-to-r from-cyan-400 to-purple-400 section-title-line2">
+                    <span class="gradient-text bg-gradient-to-r from-cyan-400 to-purple-400 section-title-line2" data-translate="services.title2">
                         Solutions
                     </span>
                 </h2>
-                <p class="text-xl text-gray-300 max-w-[800px] mx-auto section-description">
+                <p class="text-xl text-gray-300 max-w-[800px] mx-auto section-description" data-translate="services.description">
                     From ideation to deployment, we provide end-to-end development services to bring your SaaS vision to
                     life.
                 </p>
@@ -1575,8 +1708,8 @@
                         <div class="service-icon cyan">
                             <i class="fas fa-users text-cyan-400 text-2xl"></i>
                         </div>
-                        <h3 class="text-white text-xl font-bold mb-2">Team Collaboration</h3>
-                        <p class="text-gray-300">
+                        <h3 class="text-white text-xl font-bold mb-2" data-translate="services.card1.title">Team Collaboration</h3>
+                        <p class="text-gray-300" data-translate="services.card1.description">
                             Streamline your team's workflow with advanced collaboration tools and real-time
                             communication systems.
                         </p>
@@ -1594,8 +1727,8 @@
                         <div class="service-icon green">
                             <i class="fas fa-code-branch text-green-400 text-2xl"></i>
                         </div>
-                        <h3 class="text-white text-xl font-bold mb-2">Version Control</h3>
-                        <p class="text-gray-300">
+                        <h3 class="text-white text-xl font-bold mb-2" data-translate="services.card2.title">Version Control</h3>
+                        <p class="text-gray-300" data-translate="services.card2.description">
                             Implement robust version control systems with Git workflows, branching strategies, and
                             automated deployments.
                         </p>
@@ -1613,8 +1746,8 @@
                         <div class="service-icon purple">
                             <i class="fas fa-palette text-purple-400 text-2xl"></i>
                         </div>
-                        <h3 class="text-white text-xl font-bold mb-2">Design Integration</h3>
-                        <p class="text-gray-300">
+                        <h3 class="text-white text-xl font-bold mb-2" data-translate="services.card3.title">Design Integration</h3>
+                        <p class="text-gray-300" data-translate="services.card3.description">
                             Seamlessly integrate design systems and UI/UX workflows into your development process.
                         </p>
                     </div>
@@ -1631,8 +1764,8 @@
                         <div class="service-icon orange">
                             <i class="fas fa-tasks text-orange-400 text-2xl"></i>
                         </div>
-                        <h3 class="text-white text-xl font-bold mb-2">Project Management</h3>
-                        <p class="text-gray-300">
+                        <h3 class="text-white text-xl font-bold mb-2" data-translate="services.card4.title">Project Management</h3>
+                        <p class="text-gray-300" data-translate="services.card4.description">
                             Agile project management with sprint planning, task tracking, and progress monitoring tools.
                         </p>
                     </div>
@@ -1649,8 +1782,8 @@
                         <div class="service-icon red">
                             <i class="fas fa-search text-red-400 text-2xl"></i>
                         </div>
-                        <h3 class="text-white text-xl font-bold mb-2">Code Review</h3>
-                        <p class="text-gray-300">
+                        <h3 class="text-white text-xl font-bold mb-2" data-translate="services.card5.title">Code Review</h3>
+                        <p class="text-gray-300" data-translate="services.card5.description">
                             Comprehensive code review processes with automated testing, quality checks, and peer
                             reviews.
                         </p>
@@ -1668,8 +1801,8 @@
                         <div class="service-icon teal">
                             <i class="fas fa-mobile-alt text-teal-400 text-2xl"></i>
                         </div>
-                        <h3 class="text-white text-xl font-bold mb-2">Mobile Development</h3>
-                        <p class="text-gray-300">
+                        <h3 class="text-white text-xl font-bold mb-2" data-translate="services.card6.title">Mobile Development</h3>
+                        <p class="text-gray-300" data-translate="services.card6.description">
                             Cross-platform mobile app development with React Native, Flutter, and native iOS/Android
                             solutions.
                         </p>
@@ -1692,19 +1825,19 @@
                     <div class="space-y-6">
                         <div
                             class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 backdrop-blur-sm blue section-badge">
-                            <span class="text-sm text-blue-300">About BinaryImperium</span>
+                            <span class="text-sm text-blue-300" data-translate="about.badge">About Binary Imperium</span>
                         </div>
                         <h2 class="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl section-title">
-                            <span class="gradient-text bg-gradient-to-r from-white to-gray-300 section-title-line1">
+                            <span class="gradient-text bg-gradient-to-r from-white to-gray-300 section-title-line1" data-translate="about.title1">
                                 Building the Future of
                             </span>
                             <br>
                             <span
-                                class="gradient-text bg-gradient-to-r from-cyan-400 to-purple-400 section-title-line2">
+                                class="gradient-text bg-gradient-to-r from-cyan-400 to-purple-400 section-title-line2" data-translate="about.title2">
                                 SaaS Development
                             </span>
                         </h2>
-                        <p class="text-lg text-gray-300 leading-relaxed section-description">
+                        <p class="text-lg text-gray-300 leading-relaxed section-description" data-translate="about.description">
                             We're a team of passionate developers, designers, and strategists who believe in the power
                             of well-crafted software. Our mission is to help businesses transform their ideas into
                             scalable, user-friendly SaaS applications.
@@ -1717,8 +1850,8 @@
                                 <i class="fas fa-bullseye text-cyan-400"></i>
                             </div>
                             <div>
-                                <h3 class="font-semibold mb-1 text-white">Mission-Driven</h3>
-                                <p class="text-sm text-gray-300">Focused on delivering exceptional results that drive
+                                <h3 class="font-semibold mb-1 text-white" data-translate="about.feature1.title">Mission-Driven</h3>
+                                <p class="text-sm text-gray-300" data-translate="about.feature1.description">Focused on delivering exceptional results that drive
                                     business growth.</p>
                             </div>
                         </div>
@@ -1728,8 +1861,8 @@
                                 <i class="fas fa-bolt text-green-400"></i>
                             </div>
                             <div>
-                                <h3 class="font-semibold mb-1 text-white">Fast Delivery</h3>
-                                <p class="text-sm text-gray-300">Agile development process ensures quick turnaround
+                                <h3 class="font-semibold mb-1 text-white" data-translate="about.feature2.title">Fast Delivery</h3>
+                                <p class="text-sm text-gray-300" data-translate="about.feature2.description">Agile development process ensures quick turnaround
                                     times.</p>
                             </div>
                         </div>
@@ -1739,8 +1872,8 @@
                                 <i class="fas fa-shield-alt text-purple-400"></i>
                             </div>
                             <div>
-                                <h3 class="font-semibold mb-1 text-white">Secure & Scalable</h3>
-                                <p class="text-sm text-gray-300">Built with security and scalability as core principles.
+                                <h3 class="font-semibold mb-1 text-white" data-translate="about.feature3.title">Secure & Scalable</h3>
+                                <p class="text-sm text-gray-300" data-translate="about.feature3.description">Built with security and scalability as core principles.
                                 </p>
                             </div>
                         </div>
@@ -1750,8 +1883,8 @@
                                 <i class="fas fa-users text-orange-400"></i>
                             </div>
                             <div>
-                                <h3 class="font-semibold mb-1 text-white">Expert Team</h3>
-                                <p class="text-sm text-gray-300">Experienced professionals with proven track records.
+                                <h3 class="font-semibold mb-1 text-white" data-translate="about.feature4.title">Expert Team</h3>
+                                <p class="text-sm text-gray-300" data-translate="about.feature4.description">Experienced professionals with proven track records.
                                 </p>
                             </div>
                         </div>
@@ -1775,18 +1908,18 @@
             <div class="text-center space-y-6 mb-16 section-header">
                 <div
                     class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-green-500/30 bg-green-500/10 backdrop-blur-sm green section-badge">
-                    <span class="text-sm text-green-300">Our Team</span>
+                    <span class="text-sm text-green-300" data-translate="team.badge">Our Team</span>
                 </div>
                 <h2 class="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl section-title">
-                    <span class="gradient-text bg-gradient-to-r from-white to-gray-300 section-title-line1">
+                    <span class="gradient-text bg-gradient-to-r from-white to-gray-300 section-title-line1" data-translate="team.title1">
                         Meet the
                     </span>
                     <br>
-                    <span class="gradient-text bg-gradient-to-r from-cyan-400 to-purple-400 section-title-line2">
+                    <span class="gradient-text bg-gradient-to-r from-cyan-400 to-purple-400 section-title-line2" data-translate="team.title2">
                         Leadership
                     </span>
                 </h2>
-                <p class="text-xl text-gray-300 max-w-[800px] mx-auto section-description">
+                <p class="text-xl text-gray-300 max-w-[800px] mx-auto section-description" data-translate="team.description">
                     Our experienced leadership team brings together decades of expertise in software development and
                     business strategy.
                 </p>
@@ -1801,9 +1934,9 @@
                         </div>
                         <h3 class="text-white text-xl font-bold">Yani Chioukh </h3>
                         <p class="position">
-                            <i class="fas fa-globe text-cyan-400 mr-1"></i> CEO & Co-founder
+                            <i class="fas fa-globe text-cyan-400 mr-1"></i> <span data-translate="team.ceo.title">CEO & Co-founder</span>
                         </p>
-                        <p class="bio">
+                        <p class="bio" data-translate="team.ceo.bio">
                             Guides the company’s strategic direction with a focus on growth, innovation, and SaaS
                             product development. Passionate about building impactful solutions and leading teams toward
                             long-term success.
@@ -1811,7 +1944,7 @@
                         <div class="contact-links">
                             <a href="mailto:yanichioukh1@gmail.com">
                                 <i class="far fa-envelope"></i>
-                                Email
+                                <span data-translate="team.email">Email</span>
                             </a>
                             <a href="https://wa.me/213542329917">
                                 <i class="fab fa-whatsapp"></i>
@@ -1829,9 +1962,9 @@
                         </div>
                         <h3 class="text-white text-xl font-bold">Ghilas Larbi</h3>
                         <p class="position">
-                            <i class="fas fa-globe text-cyan-400 mr-1"></i> CTO & Co-founder
+                            <i class="fas fa-globe text-cyan-400 mr-1"></i> <span data-translate="team.cto.title">CTO & Co-founder</span>
                         </p>
-                        <p class="bio">
+                        <p class="bio" data-translate="team.cto.bio">
                             Oversees the technical vision and system architecture. Brings strong expertise in cloud
                             technologies and scalable infrastructure, ensuring products are built to perform and grow
                             seamlessly.
@@ -1839,7 +1972,7 @@
                         <div class="contact-links">
                             <a href="mailto:larbi.ghiles@proton.me">
                                 <i class="far fa-envelope"></i>
-                                Email
+                                <span data-translate="team.email">Email</span>
                             </a>
                             <a href="https://wa.me/213792840492">
                                 <i class="fab fa-whatsapp"></i>
@@ -1857,9 +1990,9 @@
                         </div>
                         <h3 class="text-white text-xl font-bold">Belaid Ben Aissou</h3>
                         <p class="position">
-                            <i class="fas fa-globe text-cyan-400 mr-1"></i> Design Lead
+                            <i class="fas fa-globe text-cyan-400 mr-1"></i> <span data-translate="team.design.title">Design Lead</span>
                         </p>
-                        <p class="bio">
+                        <p class="bio" data-translate="team.design.bio">
                             Shapes the creative direction and user experience of the company’s products. Dedicated to
                             designing intuitive, modern interfaces that merge aesthetics with functionality to deliver a
                             smooth digital experience.
@@ -1867,7 +2000,7 @@
                         <div class="contact-links">
                             <a href="mailto:bld.bns5@gmail.com">
                                 <i class="far fa-envelope"></i>
-                                Email
+                                <span data-translate="team.email">Email</span>
                             </a>
                             <a href="https://wa.me/12345678902">
                                 <i class="fab fa-whatsapp"></i>
@@ -1882,18 +2015,18 @@
                 <div class="team-stats">
                     <div class="stat-card">
                         <div class="stat-value cyan-blue">7+</div>
-                        <div class="stat-title">Team Members</div>
-                        <div class="stat-desc">Across different specializations</div>
+                        <div class="stat-title" data-translate="team.stat1.title">Team Members</div>
+                        <div class="stat-desc" data-translate="team.stat1.desc">Across different specializations</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value green-emerald">30+</div>
-                        <div class="stat-title">Certifications</div>
-                        <div class="stat-desc">In various technologies</div>
+                        <div class="stat-title" data-translate="team.stat2.title">Certifications</div>
+                        <div class="stat-desc" data-translate="team.stat2.desc">In various technologies</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value purple-pink">7/7</div>
-                        <div class="stat-title">Availability</div>
-                        <div class="stat-desc">Support and maintenance</div>
+                        <div class="stat-title" data-translate="team.stat3.title">Availability</div>
+                        <div class="stat-desc" data-translate="team.stat3.desc">Support and maintenance</div>
                     </div>
                 </div>
             </div>
@@ -1906,18 +2039,18 @@
             <div class="text-center space-y-6 mb-16 section-header">
                 <div
                     class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-pink-500/30 bg-pink-500/10 backdrop-blur-sm pink section-badge">
-                    <span class="text-sm text-pink-300">Get In Touch</span>
+                    <span class="text-sm text-pink-300" data-translate="contact.badge">Get In Touch</span>
                 </div>
                 <h2 class="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl section-title">
-                    <span class="gradient-text bg-gradient-to-r from-white to-gray-300 section-title-line1">
+                    <span class="gradient-text bg-gradient-to-r from-white to-gray-300 section-title-line1" data-translate="contact.title1">
                         Ready to Start Your
                     </span>
                     <br>
-                    <span class="gradient-text bg-gradient-to-r from-cyan-400 to-purple-400 section-title-line2">
+                    <span class="gradient-text bg-gradient-to-r from-cyan-400 to-purple-400 section-title-line2" data-translate="contact.title2">
                         Project?
                     </span>
                 </h2>
-                <p class="text-xl text-gray-300 max-w-[800px] mx-auto section-description">
+                <p class="text-xl text-gray-300 max-w-[800px] mx-auto section-description" data-translate="contact.description">
                     Let's discuss how we can help bring your SaaS idea to life. Get in touch with our team today.
                 </p>
             </div>
@@ -1926,36 +2059,36 @@
                 <div class="space-y-8">
                     <div class="contact-form-container">
                         <div class="p-6">
-                            <h3 class="text-white text-2xl font-bold mb-2">Send us a message</h3>
-                            <p class="text-gray-300 mb-6">
+                            <h3 class="text-white text-2xl font-bold mb-2" data-translate="contact.form.title">Send us a message</h3>
+                            <p class="text-gray-300 mb-6" data-translate="contact.form.subtitle">
                                 Fill out the form below and we'll get back to you within 24 hours.
                             </p>
                             <form id="contactForm" class="space-y-6">
                                 <div class="form-row">
                                     <div class="form-field">
-                                        <label>First Name</label>
+                                        <label data-translate="contact.form.firstName">First Name</label>
                                         <input type="text" id="firstName" name="firstName" placeholder="John" required>
                                     </div>
                                     <div class="form-field">
-                                        <label>Last Name</label>
+                                        <label data-translate="contact.form.lastName">Last Name</label>
                                         <input type="text" id="lastName" name="lastName" placeholder="Doe" required>
                                     </div>
                                 </div>
                                 <div class="form-field">
-                                    <label>Email</label>
+                                    <label data-translate="contact.form.email">Email</label>
                                     <input type="email" id="email" name="email" placeholder="john@example.com" required>
                                 </div>
                                 <div class="form-field">
-                                    <label>Company</label>
+                                    <label data-translate="contact.form.company">Company</label>
                                     <input type="text" id="company" name="company" placeholder="Your Company">
                                 </div>
                                 <div class="form-field">
-                                    <label>Project Details</label>
+                                    <label data-translate="contact.form.details">Project Details</label>
                                     <textarea id="projectDetails" name="projectDetails"
                                         placeholder="Tell us about your project requirements, timeline, and budget..."
                                         rows="5" required></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-gradient w-full py-3 rounded-lg font-medium">
+                                <button type="submit" class="btn btn-gradient w-full py-3 rounded-lg font-medium" data-translate="contact.form.button">
                                     Send Message
                                 </button>
                                 <div id="formStatus" class="form-status"></div>
@@ -1970,8 +2103,8 @@
                             <i class="far fa-envelope text-cyan-400 text-2xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-white text-lg mb-2">Email Us</h3>
-                            <p class="text-gray-300 mb-3">Get in touch via email</p>
+                            <h3 class="text-white text-lg mb-2" data-translate="contact.email.title">Email Us</h3>
+                            <p class="text-gray-300 mb-3" data-translate="contact.email.subtitle">Get in touch via email</p>
                             <a href="mailto:hello@binaryimperium.com">hello@binaryimperium.com</a>
                         </div>
                     </div>
@@ -1981,10 +2114,10 @@
                             <i class="far fa-calendar-alt text-purple-400 text-2xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-white text-lg mb-2">Book a Meeting</h3>
-                            <p class="text-gray-300 mb-3">Schedule a quick video call with our team</p>
+                            <h3 class="text-white text-lg mb-2" data-translate="contact.meeting.title">Book a Meeting</h3>
+                            <p class="text-gray-300 mb-3" data-translate="contact.meeting.subtitle">Schedule a quick video call with our team</p>
                             <a href="https://calendly.com/yanichioukh1" target="_blank" class="btn-schedule">
-                                <i class="fas fa-video mr-2"></i> Schedule a Call
+                                <i class="fas fa-video mr-2"></i> <span data-translate="contact.meeting.button">Schedule a Call</span>
                             </a>
                         </div>
                     </div>
@@ -1994,14 +2127,14 @@
                             <i class="fas fa-globe text-teal-400 text-2xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-white text-lg mb-2">We are Remote</h3>
-                            <p class="text-gray-300 mb-3">Serving clients worldwide</p>
-                            <address>We are a 100% Remote Agency<br>Serving Clients Worldwide</address>
+                            <h3 class="text-white text-lg mb-2" data-translate="contact.remote.title">We are Remote</h3>
+                            <p class="text-gray-300 mb-3" data-translate="contact.remote.subtitle">Serving clients worldwide</p>
+                            <address data-translate="contact.remote.address">We are a 100% Remote Agency<br>Serving Clients Worldwide</address>
                         </div>
                     </div>
 
                     <div class="benefits-card">
-                        <h3>Why Choose BinaryImperium?</h3>
+                        <h3 data-translate="contact.benefits.title">Why Choose Binary Imperium?</h3>
                         <ul>
                             <li style="--animation-order: 1">
                                 <div class="check-svg">
@@ -2010,7 +2143,7 @@
                                         <path d="M7 12.5L10 15.5L17 8.5" class="check-path cyan-check" />
                                     </svg>
                                 </div>
-                                <span>Free initial consultation and project assessment</span>
+                                <span data-translate="contact.benefits.item1">Free initial consultation and project assessment</span>
                             </li>
                             <li style="--animation-order: 2">
                                 <div class="check-svg">
@@ -2019,7 +2152,7 @@
                                         <path d="M7 12.5L10 15.5L17 8.5" class="check-path green-check" />
                                     </svg>
                                 </div>
-                                <span>Transparent pricing with no hidden costs</span>
+                                <span data-translate="contact.benefits.item2">Transparent pricing with no hidden costs</span>
                             </li>
                             <li style="--animation-order: 3">
                                 <div class="check-svg">
@@ -2028,7 +2161,7 @@
                                         <path d="M7 12.5L10 15.5L17 8.5" class="check-path purple-check" />
                                     </svg>
                                 </div>
-                                <span>Dedicated project manager for each client</span>
+                                <span data-translate="contact.benefits.item3">Dedicated project manager for each client</span>
                             </li>
                             <li style="--animation-order: 4">
                                 <div class="check-svg">
@@ -2037,7 +2170,7 @@
                                         <path d="M7 12.5L10 15.5L17 8.5" class="check-path orange-check" />
                                     </svg>
                                 </div>
-                                <span>Post-launch support and maintenance</span>
+                                <span data-translate="contact.benefits.item4">Post-launch support and maintenance</span>
                             </li>
                         </ul>
                     </div>
@@ -2050,12 +2183,12 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-links">
-                <a href="#services" class="footer-link">Services</a>
-                <a href="#about" class="footer-link">About</a>
-                <a href="#team" class="footer-link">Team</a>
-                <a href="#contact" class="footer-link">Contact</a>
-                <a href="privacy.html" class="footer-link">Privacy Policy</a>
-                <a href="service.html" class="footer-link">Terms of Service</a>
+                <a href="#services" class="footer-link" data-translate="footer.services">Services</a>
+                <a href="#about" class="footer-link" data-translate="footer.about">About</a>
+                <a href="#team" class="footer-link" data-translate="footer.team">Team</a>
+                <a href="#contact" class="footer-link" data-translate="footer.contact">Contact</a>
+                <a id="privacy-link" href="privacy.html" class="footer-link" data-translate="footer.privacy">Privacy Policy</a>
+                <a id="terms-link" href="service.html" class="footer-link" data-translate="footer.terms">Terms of Service</a>
             </div>
 
             <div class="social-links">
@@ -2072,16 +2205,452 @@
                 </a>
             </div>
 
-            <p>
-                © 2025 BinaryImperium. All rights reserved.
+            <p data-translate="footer.copyright">
+                © 2025 Binary Imperium. All rights reserved.
             </p>
             <p>
-                Built with <span class="heart">❤️</span> for the developer community
+                <span data-translate="footer.built">Built with</span> <span class="heart">❤️</span> <span data-translate="footer.community">for the developer community</span>
             </p>
         </div>
     </footer>
 
     <script>
+        // Language translations
+        const translations = {
+            en: {
+                // Navigation
+                "nav.services": "Services",
+                "nav.about": "About",
+                "nav.team": "Team",
+                "nav.contact": "Contact",
+                
+                // Language switcher
+                "language": "EN",
+                
+                // Hero section
+                "hero.badge": "Leading SaaS Development Agency",
+                "hero.title1": "Build Better",
+                "hero.title2": "Software",
+                "hero.title3": "Faster",
+                "hero.description": "We help startups and enterprises build scalable SaaS applications with modern development practices, seamless collaboration, and cutting-edge technology.",
+                "hero.buttonWork": "View Our Work",
+                "hero.buttonProject": "Start a Project",
+                "hero.stat1": "Projects Delivered",
+                "hero.stat2": "Client Satisfaction",
+                "hero.stat3": "Support",
+                
+                // Services section
+                "services.badge": "Our Services",
+                "services.title1": "Complete Development",
+                "services.title2": "Solutions",
+                "services.description": "From ideation to deployment, we provide end-to-end development services to bring your SaaS vision to life.",
+                "services.card1.title": "Team Collaboration",
+                "services.card1.description": "Streamline your team's workflow with advanced collaboration tools and real-time communication systems.",
+                "services.card2.title": "Version Control",
+                "services.card2.description": "Implement robust version control systems with Git workflows, branching strategies, and automated deployments.",
+                "services.card3.title": "Design Integration",
+                "services.card3.description": "Seamlessly integrate design systems and UI/UX workflows into your development process.",
+                "services.card4.title": "Project Management",
+                "services.card4.description": "Agile project management with sprint planning, task tracking, and progress monitoring tools.",
+                "services.card5.title": "Code Review",
+                "services.card5.description": "Comprehensive code review processes with automated testing, quality checks, and peer reviews.",
+                "services.card6.title": "Mobile Development",
+                "services.card6.description": "Cross-platform mobile app development with React Native, Flutter, and native iOS/Android solutions.",
+                
+                // About section
+                "about.badge": "About Binary Imperium",
+                "about.title1": "Building the Future of",
+                "about.title2": "SaaS Development",
+                "about.description": "We're a team of passionate developers, designers, and strategists who believe in the power of well-crafted software. Our mission is to help businesses transform their ideas into scalable, user-friendly SaaS applications.",
+                "about.feature1.title": "Mission-Driven",
+                "about.feature1.description": "Focused on delivering exceptional results that drive business growth.",
+                "about.feature2.title": "Fast Delivery",
+                "about.feature2.description": "Agile development process ensures quick turnaround times.",
+                "about.feature3.title": "Secure & Scalable",
+                "about.feature3.description": "Built with security and scalability as core principles.",
+                "about.feature4.title": "Expert Team",
+                "about.feature4.description": "Experienced professionals with proven track records.",
+                
+                // Team section
+                "team.badge": "Our Team",
+                "team.title1": "Meet the",
+                "team.title2": "Leadership",
+                "team.description": "Our experienced leadership team brings together decades of expertise in software development and business strategy.",
+                "team.ceo.title": "CEO & Co-founder",
+                "team.ceo.bio": "Guides the company's strategic direction with a focus on growth, innovation, and SaaS product development. Passionate about building impactful solutions and leading teams toward long-term success.",
+                "team.cto.title": "CTO & Co-founder",
+                "team.cto.bio": "Oversees the technical vision and system architecture. Brings strong expertise in cloud technologies and scalable infrastructure, ensuring products are built to perform and grow seamlessly.",
+                "team.design.title": "Design Lead",
+                "team.design.bio": "Shapes the creative direction and user experience of the company's products. Dedicated to designing intuitive, modern interfaces that merge aesthetics with functionality to deliver a smooth digital experience.",
+                "team.email": "Email",
+                "team.stat1.title": "Team Members",
+                "team.stat1.desc": "Across different specializations",
+                "team.stat2.title": "Certifications",
+                "team.stat2.desc": "In various technologies",
+                "team.stat3.title": "Availability",
+                "team.stat3.desc": "Support and maintenance",
+                
+                // Contact section
+                "contact.badge": "Get In Touch",
+                "contact.title1": "Ready to Start Your",
+                "contact.title2": "Project?",
+                "contact.description": "Let's discuss how we can help bring your SaaS idea to life. Get in touch with our team today.",
+                "contact.form.title": "Send us a message",
+                "contact.form.subtitle": "Fill out the form below and we'll get back to you within 24 hours.",
+                "contact.form.firstName": "First Name",
+                "contact.form.lastName": "Last Name",
+                "contact.form.email": "Email",
+                "contact.form.company": "Company",
+                "contact.form.details": "Project Details",
+                "contact.form.button": "Send Message",
+                "contact.email.title": "Email Us",
+                "contact.email.subtitle": "Get in touch via email",
+                "contact.meeting.title": "Book a Meeting",
+                "contact.meeting.subtitle": "Schedule a quick video call with our team",
+                "contact.meeting.button": "Schedule a Call",
+                "contact.remote.title": "We are Remote",
+                "contact.remote.subtitle": "Serving clients worldwide",
+                "contact.remote.address": "We are a 100% Remote Agency<br>Serving Clients Worldwide",
+                "contact.benefits.title": "Why Choose Binary Imperium?",
+                "contact.benefits.item1": "Free initial consultation and project assessment",
+                "contact.benefits.item2": "Transparent pricing with no hidden costs",
+                "contact.benefits.item3": "Dedicated project manager for each client",
+                "contact.benefits.item4": "Post-launch support and maintenance",
+                
+                // Footer
+                "footer.services": "Services",
+                "footer.about": "About",
+                "footer.team": "Team",
+                "footer.contact": "Contact",
+                "footer.privacy": "Privacy Policy",
+                "footer.terms": "Terms of Service",
+                "footer.copyright": "© 2025 Binary Imperium. All rights reserved.",
+                "footer.built": "Built with",
+                "footer.community": "for the developer community"
+            },
+            fr: {
+                // Navigation
+                "nav.services": "Services",
+                "nav.about": "À propos",
+                "nav.team": "Équipe",
+                "nav.contact": "Contact",
+                
+                // Language switcher
+                "language": "FR",
+                
+                // Hero section
+                "hero.badge": "Agence de développement SaaS leader",
+                "hero.title1": "Construisez Mieux",
+                "hero.title2": "Logiciel",
+                "hero.title3": "Plus Rapide",
+                "hero.description": "Nous aidons les startups et les entreprises à construire des applications SaaS évolutives avec des pratiques de développement modernes, une collaboration transparente et une technologie de pointe.",
+                "hero.buttonWork": "Voir notre travail",
+                "hero.buttonProject": "Commencer un projet",
+                "hero.stat1": "Projets Livrés",
+                "hero.stat2": "Satisfaction Client",
+                "hero.stat3": "Support",
+                
+                // Services section
+                "services.badge": "Nos Services",
+                "services.title1": "Développement Complet",
+                "services.title2": "Solutions",
+                "services.description": "De l'idéation au déploiement, nous fournissons des services de développement de bout en bout pour concrétiser votre vision SaaS.",
+                "services.card1.title": "Collaboration d'Équipe",
+                "services.card1.description": "Rationalisez le flux de travail de votre équipe avec des outils de collaboration avancés et des systèmes de communication en temps réel.",
+                "services.card2.title": "Contrôle de Version",
+                "services.card2.description": "Mettez en œuvre des systèmes de contrôle de version robustes avec des workflows Git, des stratégies de branchement et des déploiements automatisés.",
+                "services.card3.title": "Intégration Design",
+                "services.card3.description": "Intégrez de manière transparente les systèmes de design et les workflows UI/UX dans votre processus de développement.",
+                "services.card4.title": "Gestion de Projet",
+                "services.card4.description": "Gestion de projet agile avec planification de sprint, suivi des tâches et outils de surveillance des progrès.",
+                "services.card5.title": "Revue de Code",
+                "services.card5.description": "Processus complets de revue de code avec tests automatisés, contrôles de qualité et revues par les pairs.",
+                "services.card6.title": "Développement Mobile",
+                "services.card6.description": "Développement d'applications mobiles multiplateformes avec React Native, Flutter et solutions natives iOS/Android.",
+                
+                // About section
+                "about.badge": "À propos de Binary Imperium",
+                "about.title1": "Construire l'Avenir du",
+                "about.title2": "Développement SaaS",
+                "about.description": "Nous sommes une équipe de développeurs, designers et stratèges passionnés qui croient en la puissance des logiciels bien conçus. Our mission is to help businesses transform their ideas into scalable, user-friendly SaaS applications.",
+                "about.feature1.title": "Orientée Mission",
+                "about.feature1.description": "Concentrée sur la fourniture de résultats exceptionnels qui stimulent la croissance de l'entreprise.",
+                "about.feature2.title": "Livraison Rapide",
+                "about.feature2.description": "Processus de développement agile garantissant des délais d'exécution rapides.",
+                "about.feature3.title": "Sécurisé et Évolutif",
+                "about.feature3.description": "Construit avec la sécurité et l'évolutivité comme principes fondamentaux.",
+                "about.feature4.title": "Équipe d'Experts",
+                "about.feature4.description": "Professionnels expérimentés avec des antécédents éprouvés.",
+                
+                // Team section
+                "team.badge": "Notre Équipe",
+                "team.title1": "Rencontrez la",
+                "team.title2": "Direction",
+                "team.description": "Notre équipe de direction expérimentée réunit des décennies d'expertise en développement logiciel et en stratégie commerciale.",
+                "team.ceo.title": "PDG et Co-fondateur",
+                "team.ceo.bio": "Guide l'orientation stratégique de l'entreprise avec un accent sur la croissance, l'innovation et le développement de produits SaaS. Passionné par la création de solutions impactantes et la conduite d'équipes vers le succès à long terme.",
+                "team.cto.title": "CTO et Co-fondateur",
+                "team.cto.bio": "Supervise la vision technique et l'architecture système. Apporte une expertise solide dans les technologies cloud et l'infrastructure évolutive, garantissant que les produits sont construits pour performer et croître de manière transparente.",
+                "team.design.title": "Responsable Design",
+                "team.design.bio": "Façonne la direction créative et l'expérience utilisateur des produits de l'entreprise. Dédié à la conception d'interfaces intuitives et modernes qui fusionnent l'esthétique et la fonctionnalité pour offrir une expérience numérique fluide.",
+                "team.email": "Email",
+                "team.stat1.title": "Membres d'Équipe",
+                "team.stat1.desc": "Dans différentes spécialisations",
+                "team.stat2.title": "Certifications",
+                "team.stat2.desc": "Dans diverses technologies",
+                "team.stat3.title": "Disponibilité",
+                "team.stat3.desc": "Support et maintenance",
+                
+                // Contact section
+                "contact.badge": "Contactez-nous",
+                "contact.title1": "Prêt à Démarrer Votre",
+                "contact.title2": "Projet?",
+                "contact.description": "Discutons de la façon dont nous pouvons vous aider à concrétiser votre idée SaaS. Contactez notre équipe dès aujourd'hui.",
+                "contact.form.title": "Envoyez-nous un message",
+                "contact.form.subtitle": "Remplissez le formulaire ci-dessous et nous vous répondrons dans les 24 heures.",
+                "contact.form.firstName": "Prénom",
+                "contact.form.lastName": "Nom",
+                "contact.form.email": "Email",
+                "contact.form.company": "Entreprise",
+                "contact.form.details": "Détails du Projet",
+                "contact.form.button": "Envoyer le Message",
+                "contact.email.title": "Envoyez-nous un email",
+                "contact.email.subtitle": "Contactez-nous par email",
+                "contact.meeting.title": "Planifier une Réunion",
+                "contact.meeting.subtitle": "Planifiez un appel vidéo rapide avec notre équipe",
+                "contact.meeting.button": "Planifier un Appel",
+                "contact.remote.title": "Nous sommes à Distance",
+                "contact.remote.subtitle": "Desservant des clients worldwide",
+                "contact.remote.address": "Nous sommes une Agence 100% à Distance<br>Desservant des clients worldwide",
+                "contact.benefits.title": "Pourquoi Choisir Binary Imperium?",
+                "contact.benefits.item1": "Consultation initiale gratuite et évaluation de projet",
+                "contact.benefits.item2": "Tarification transparente sans coûts cachés",
+                "contact.benefits.item3": "Chef de projet dédié pour chaque client",
+                "contact.benefits.item4": "Support et maintenance après le lancement",
+                
+                // Footer
+                "footer.services": "Services",
+                "footer.about": "À propos",
+                "footer.team": "Équipe",
+                "footer.contact": "Contact",
+                "footer.privacy": "Politique de Confidentialité",
+                "footer.terms": "Conditions d'Utilisation",
+                "footer.copyright": "© 2025 Binary Imperium. Tous droits réservés.",
+                "footer.built": "Construit avec",
+                "footer.community": "pour la communauté de développeurs"
+            },
+            ar: {
+                // Navigation
+                "nav.services": "خدمات",
+                "nav.about": "من نحن",
+                "nav.team": "الفريق",
+                "nav.contact": "اتصل بنا",
+                
+                // Language switcher
+                "language": "AR",
+                
+                // Hero section
+                "hero.badge": "وكالة رائدة في تطوير البرمجيات كخدمة",
+                "hero.title1": "ابني أفضل",
+                "hero.title2": "البرمجيات",
+                "hero.title3": "أسرع",
+                "hero.description": "نساعد الشركات الناشئة والمؤسسات على بناء تطبيقات برمجية قابلة للتطوير مع ممارسات تطوير حديثة، وتعاون سلس، وتقنية متطورة.",
+                "hero.buttonWork": "عرض أعمالنا",
+                "hero.buttonProject": "بدء مشروع",
+                "hero.stat1": "المشاريع المسلمة",
+                "hero.stat2": "رضا العملاء",
+                "hero.stat3": "الدعم",
+                
+                // Services section
+                "services.badge": "خدماتنا",
+                "services.title1": "حلول التطوير",
+                "services.title2": "الشاملة",
+                "services.description": "من الفكرة إلى النشر، نقدم خدمات تطوير شاملة لتحقيق رؤيتك للبرمجيات كخدمة.",
+                "services.card1.title": "تعاون الفريق",
+                "services.card1.description": "بسط سير عمل فريقك مع أدوات collaboration متقدمة وأنظمة اتصال فورية.",
+                "services.card2.title": "التحكم بالإصدار",
+                "services.card2.description": "نفذ أنظمة قوية للتحكم بالإصدار مع سير عمل Git، واستراتيجيات الفروع، والنشر الآلي.",
+                "services.card3.title": "دمج التصميم",
+                "services.card3.description": "ادمج أنظمة التصميم وسير عمل واجهة المستخدم بسلاسة في عملية التطوير الخاصة بك.",
+                "services.card4.title": "إدارة المشروع",
+                "services.card4.description": "إدارة مشاريع ágile مع تخطيط السبرينت، وتتبع المهام، وأدوات مراقبة التقدم.",
+                "services.card5.title": "مراجعة الكود",
+                "services.card5.description": "عمليات مراجعة كود شاملة مع اختبار آلي، فحوصات جودة، ومراجعات الأقران.",
+                "services.card6.title": "تطوير الجوال",
+                "services.card6.description": "تطوير تطبيقات جوال cross-platform مع React Native، Flutter، وحلول iOS/Android الأصلية.",
+                
+                // About section
+                "about.badge": "عن Binary Imperium",
+                "about.title1": "نبني مستقبل",
+                "about.title2": "تطوير البرمجيات كخدمة",
+                "about.description": "نحن فريق من المطورين والمصممين والإستراتيجيين المتحمسين الذين يؤمنون بقوة البرمجيات المصممة جيدًا. مهمتنا هي مساعدة الشركات على تحويل أفكارهم إلى تطبيقات برمجيات كخدمة قابلة للتطوير وسهلة الاستخدام.",
+                "about.feature1.title": "موجهة بالمهمة",
+                "about.feature1.description": "تركز على تقديم نتائج استثنائية تعزز نمو الأعمال.",
+                "about.feature2.title": "تسليم سريع",
+                "about.feature2.description": "ضمان عملية تطوير agile لأوقات إنجاز سريعة.",
+                "about.feature3.title": "آمن وقابل للتطوير",
+                "about.feature3.description": "مبني بالأمان والقابلية للتطوير كمبادئ أساسية.",
+                "about.feature4.title": "فريق خبير",
+                "about.feature4.description": "محترفون ذوو خبرة بسجلات حافلة مثبتة.",
+                
+                // Team section
+                "team.badge": "فريقنا",
+                "team.title1": "تعرف على",
+                "team.title2": "القادة",
+                "team.description": "يجمع فريق القيادة ذو الخبرة لدينا عقودًا من الخبرة في تطوير البرمجيات واستراتيجية الأعمال.",
+                "team.ceo.title": "الرئيس التنفيذي والشريك المؤسس",
+                "team.ceo.bio": "يوجه التوجه الاستراتيجي للشركة مع التركيز على النمو والابتكار وتطوير منتجات البرمجيات كخدمة. شغوف ببناء حلول مؤثرة وقيادة الفرق نحو النجاح طويل الأجل.",
+                "team.cto.title": "الرئيس التقني والشريك المؤسس",
+                "team.cto.bio": "يشرف على الرؤية التقنية وهندسة النظام. يجلب خبرة قوية في تقنيات الحوسبة السحابية والبنية التحتية القابلة للتطوير، مما يضمن بناء المنتجات لأداء ونمو سلس.",
+                "team.design.title": "قائد التصميم",
+                "team.design.bio": "يشكل الاتجاه الإبداعي وتجربة المستخدم لمنتجات الشركة. مكرس لتصميم واجهات بديهية وعصرية تدمج الجماليات والوظائف لتقديم تجربة رقمية سلسة.",
+                "team.email": "البريد الإلكتروني",
+                "team.stat1.title": "أعضاء الفريق",
+                "team.stat1.desc": "في تخصصات مختلفة",
+                "team.stat2.title": "شهادات",
+                "team.stat2.desc": "في تقنيات متنوعة",
+                "team.stat3.title": "التوفر",
+                "team.stat3.desc": "الدعم والصيانة",
+                
+                // Contact section
+                "contact.badge": "اتصل بنا",
+                "contact.title1": "مستعد لبدء",
+                "contact.title2": "مشروعك؟",
+                "contact.description": "دعنا نناقش كيف يمكننا مساعدتك في تحقيق فكرة البرمجيات كخدمة الخاصة بك. تواصل مع فريقنا اليوم.",
+                "contact.form.title": "أرسل لنا رسالة",
+                "contact.form.subtitle": "املأ النموذج أدناه وسنعاود الاتصال بك في غضون 24 ساعة.",
+                "contact.form.firstName": "الاسم الأول",
+                "contact.form.lastName": "الاسم الأخير",
+                "contact.form.email": "البريد الإلكتروني",
+                "contact.form.company": "الشركة",
+                "contact.form.details": "تفاصيل المشروع",
+                "contact.form.button": "إرسال الرسالة",
+                "contact.email.title": "راسلنا عبر البريد",
+                "contact.email.subtitle": "تواصل معنا عبر البريد الإلكتروني",
+                "contact.meeting.title": "احجز اجتماعًا",
+                "contact.meeting.subtitle": "جد مكالمة فيديو سريعة مع فريقنا",
+                "contact.meeting.button": "جدولة مكالمة",
+                "contact.remote.title": "نحن عن بُعد",
+                "contact.remote.subtitle": "نخدم العملاء حول العالم",
+                "contact.remote.address": "نحن وكالة عن بُعد 100%<br>نخدم العملاء حول العالم",
+                "contact.benefits.title": "لماذا تختار Binary Imperium؟",
+                "contact.benefits.item1": "استشارة أولية مجانية وتقييم المشروع",
+                "contact.benefits.item2": "أسعار شفافة بدون تكاليف خفية",
+                "contact.benefits.item3": "مدير مشروع مخصص لكل عميل",
+                "contact.benefits.item4": "الدعم والصيانة بعد الإطلاق",
+                
+                // Footer
+                "footer.services": "خدمات",
+                "footer.about": "من نحن",
+                "footer.team": "الفريق",
+                "footer.contact": "اتصل بنا",
+                "footer.privacy": "سياسة الخصوصية",
+                "footer.terms": "شروط الخدمة",
+                "footer.copyright": "© 2025 Binary Imperium. جميع الحقوق محفوظة.",
+                "footer.built": "بُني",
+                "footer.community": "لمجتمع المطورين"
+            }
+        };
+
+        // Language management
+        let currentLanguage = localStorage.getItem('language') || 'en';
+
+        // Function to update footer links based on language
+        function updateFooterLinks(lang) {
+            const privacyLink = document.getElementById('privacy-link');
+            const termsLink = document.getElementById('terms-link');
+            
+            if (lang === 'fr') {
+                privacyLink.href = 'privacy-fr.html';
+                termsLink.href = 'service-fr.html';
+            } else if (lang === 'ar') {
+                privacyLink.href = 'privacy-ar.html';
+                termsLink.href = 'service-ar.html';
+            } else {
+                privacyLink.href = 'privacy.html';
+                termsLink.href = 'service.html';
+            }
+        }
+
+        // Function to change language
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('language', lang);
+            
+            // Update all elements with data-translate attribute
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang][key]) {
+                    if (element.hasAttribute('placeholder')) {
+                        element.setAttribute('placeholder', translations[lang][key]);
+                    } else {
+                        element.innerHTML = translations[lang][key];
+                    }
+                }
+            });
+            
+            // Update language button text
+            document.querySelector('.language-btn span').textContent = translations[lang]['language'];
+            
+            // Update active language option
+            document.querySelectorAll('.language-option').forEach(option => {
+                if (option.getAttribute('data-lang') === lang) {
+                    option.classList.add('active');
+                } else {
+                    option.classList.remove('active');
+                }
+            });
+            
+            // Update footer links
+            updateFooterLinks(lang);
+            
+            // Update direction for RTL languages
+            if (lang === 'ar') {
+                document.body.setAttribute('dir', 'rtl');
+                document.documentElement.setAttribute('dir', 'rtl');
+                document.documentElement.setAttribute('lang', 'ar');
+            } else {
+                document.body.setAttribute('dir', 'ltr');
+                document.documentElement.setAttribute('dir', 'ltr');
+                document.documentElement.setAttribute('lang', lang);
+            }
+        }
+
+        // Initialize language on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            changeLanguage(currentLanguage);
+            
+            // Language switcher dropdown toggle
+            const languageBtn = document.getElementById('languageBtn');
+            const languageDropdown = document.getElementById('languageDropdown');
+            
+            if (languageBtn && languageDropdown) {
+                languageBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    languageDropdown.classList.toggle('active');
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function() {
+                    languageDropdown.classList.remove('active');
+                });
+                
+                // Prevent dropdown from closing when clicking inside
+                languageDropdown.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+                
+                // Language option click handler
+                document.querySelectorAll('.language-option').forEach(option => {
+                    option.addEventListener('click', function() {
+                        const lang = this.getAttribute('data-lang');
+                        changeLanguage(lang);
+                        languageDropdown.classList.remove('active');
+                    });
+                });
+            }
+        });
+
         // Mobile menu toggle
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
         const mobileMenu = document.getElementById('mobileMenu');
