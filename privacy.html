@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - Binary Imperium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -14,101 +15,123 @@
         }
 
         body {
-            background-color: #f8f9fa;
-            color: #333;
+            background-color: #0a1929;
+            color: #e0e0e0;
             line-height: 1.6;
+            padding: 20px;
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 40px;
+            background: #152642;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 100, 200, 0.15);
         }
 
         header {
             text-align: center;
             margin-bottom: 40px;
             padding-bottom: 20px;
-            border-bottom: 1px solid #eaeaea;
+            border-bottom: 1px solid #2a3c5a;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            color: #4fc3f7;
+            margin-bottom: 10px;
+            font-weight: bold;
         }
 
         h1 {
-            font-size: 2.5rem;
-            color: #2c3e50;
+            font-size: 2.2rem;
+            color: #bb86fc;
             margin-bottom: 10px;
         }
 
         .subtitle {
-            font-size: 1.2rem;
-            color: #7f8c8d;
+            font-size: 1.1rem;
+            color: #a0aec0;
+            margin-bottom: 20px;
+        }
+
+        .last-updated {
+            font-style: italic;
+            color: #718096;
+            font-size: 0.9rem;
         }
 
         section {
-            margin-bottom: 30px;
-            background: white;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 35px;
         }
 
         h2 {
-            color: #2c3e50;
+            color: #4fc3f7;
             margin-bottom: 15px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #f1f1f1;
+            border-bottom: 2px solid #2a3c5a;
+            display: flex;
+            align-items: center;
+        }
+
+        h2 i {
+            margin-right: 10px;
+            color: #bb86fc;
         }
 
         p,
         ul {
             margin-bottom: 15px;
+            padding: 0 10px;
         }
 
         ul {
-            padding-left: 20px;
+            padding-left: 30px;
         }
 
         li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+        }
+
+        .contact-info {
+            background: #1e3658;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #bb86fc;
         }
 
         .contact-email {
-            color: #3498db;
+            color: #4fc3f7;
             text-decoration: none;
             font-weight: 600;
         }
 
         .contact-email:hover {
+            color: #bb86fc;
             text-decoration: underline;
-        }
-
-        .last-updated {
-            font-style: italic;
-            color: #95a5a6;
-            text-align: center;
-            margin-top: 40px;
-            font-size: 0.9rem;
         }
 
         footer {
             text-align: center;
             margin-top: 50px;
             padding-top: 20px;
-            border-top: 1px solid #eaeaea;
-            color: #7f8c8d;
+            border-top: 1px solid #2a3c5a;
+            color: #718096;
             font-size: 0.9rem;
         }
 
         @media (max-width: 600px) {
             .container {
-                padding: 20px 15px;
+                padding: 25px;
             }
 
             h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
 
             section {
-                padding: 20px;
+                margin-bottom: 25px;
             }
         }
     </style>
@@ -117,18 +140,22 @@
 <body>
     <div class="container">
         <header>
+            <div class="logo">
+                <i class="fas fa-microchip"></i> Binary Imperium
+            </div>
             <h1>Privacy Policy</h1>
             <p class="subtitle">How we protect and handle your information at Binary Imperium</p>
+            <p class="last-updated">Last updated: September 2023</p>
         </header>
 
         <section>
-            <h2>Our Commitment</h2>
+            <h2><i class="fas fa-shield-alt"></i> Our Commitment</h2>
             <p>At Binary Imperium, we respect your privacy and are committed to protecting your personal information.
                 This policy explains how we handle and safeguard your data when you interact with our services.</p>
         </section>
 
         <section>
-            <h2>Information We Collect</h2>
+            <h2><i class="fas fa-database"></i> Information We Collect</h2>
             <p>When you contact us, we may collect:</p>
             <ul>
                 <li>Your name</li>
@@ -140,7 +167,7 @@
         </section>
 
         <section>
-            <h2>How We Use Your Information</h2>
+            <h2><i class="fas fa-cogs"></i> How We Use Your Information</h2>
             <p>We use your information for the following purposes:</p>
             <ul>
                 <li>To respond to your inquiries and provide our services</li>
@@ -150,7 +177,7 @@
         </section>
 
         <section>
-            <h2>Sharing of Information</h2>
+            <h2><i class="fas fa-share-alt"></i> Sharing of Information</h2>
             <p>We value your privacy and operate under these principles:</p>
             <ul>
                 <li>We do not sell, rent, or trade your personal data</li>
@@ -161,21 +188,23 @@
         </section>
 
         <section>
-            <h2>Your Rights</h2>
+            <h2><i class="fas fa-user-lock"></i> Your Rights</h2>
             <p>You have the right to access, correct, or delete your personal information. To exercise these rights,
                 please contact us at:</p>
-            <p><a href="mailto:hello@imperiumdigital.com" class="contact-email">hello@imperiumdigital.com</a></p>
-            <p>We will respond to your request in a timely manner, in accordance with applicable laws.</p>
+            <div class="contact-info">
+                <p><i class="fas fa-envelope"></i> Email: <a href="mailto:hello@imperiumdigital.com"
+                        class="contact-email">hello@imperiumdigital.com</a></p>
+                <p><i class="fas fa-clock"></i> We will respond to your request in a timely manner, in accordance with
+                    applicable laws.</p>
+            </div>
         </section>
 
         <section>
-            <h2>Policy Updates</h2>
+            <h2><i class="fas fa-sync-alt"></i> Policy Updates</h2>
             <p>This Privacy Policy may be updated from time to time to reflect changes in our practices or legal
                 requirements. We will post the updated policy on our website with a revised effective date.</p>
             <p>Continued use of our website means you accept the latest version of our policy.</p>
         </section>
-
-        <p class="last-updated">Last updated: September 2023</p>
 
         <footer>
             <p>© 2023 Binary Imperium. All rights reserved.</p>
